@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("board");
   const squares = board.querySelectorAll("div");
   const status = document.getElementById("status");
+  const newGameBtn = document.querySelector(".btn");
+  const defaultMsg = "Move your mouse over a square and click to play an X or an O.";
 
   squares.forEach((square) => {
     square.classList.add("square");
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       square.textContent = currentPlayer;
       square.classList.add(currentPlayer);
+      square.style.cursor = "default";       // optional UX hardening
       state[index] = currentPlayer;
 
       const winner = checkWinner();
@@ -53,5 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
     square.addEventListener("mouseout", () => {
       square.classList.remove("hover");
     });
+  });
+
+  newGameBtn.addEventListener("click", () => {
+    for (let i = 0; i < 9; i++) {
+      state[i] = null;
+      squares[i].textContent = "";
+      squares[i].classList.remove("X", "O", "hover");
+      squares[i].style.cursor = "";          // clear inline style
+    }
+    status.textContent = defaultMsg;
+    status.classList.remove("you-won");
+    currentPlayer = "X";
+    gameOver = false;
   });
 });
