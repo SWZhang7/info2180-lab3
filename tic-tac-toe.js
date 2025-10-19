@@ -18,5 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
       state[index] = currentPlayer;
       currentPlayer = currentPlayer === "X" ? "O" : "X";
     });
+
+    square.addEventListener("mouseover", () => {
+      square.classList.add("hover");
+    });
+
+    square.addEventListener("mouseout", () => {
+      square.classList.remove("hover");
+    });
   });
 });
