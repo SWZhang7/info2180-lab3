@@ -1,11 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
   const board = document.getElementById("board");
-  if (!board) return;
+  const squares = board.querySelectorAll("div");
 
-  const cells = board.querySelectorAll("div"); 
-  cells.forEach((cell) => {
-    cell.classList.add("square");
+  squares.forEach((square) => {
+    square.classList.add("square");
   });
 
-  
+  const state = Array(9).fill(null);
+  let currentPlayer = "X";
+
+  squares.forEach((square, index) => {
+    square.addEventListener("click", () => {
+      if (state[index] !== null) return;
+
+      square.textContent = currentPlayer;
+      square.classList.add(currentPlayer);
+      state[index] = currentPlayer;
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+    });
+  });
 });
